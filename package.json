@@ -1,0 +1,19 @@
+{
+  "name": "eatIT",
+  "version": "1.0.0",
+  "description": "An ecommerce website for the sales of all kinds of Nigerian dishes for a fictional startup",
+  "main": "app.js",
+  "scripts": {
+    "test": "1"
+  },
+  "keywords": [
+    "1"
+  ],
+  "author": "codekyd",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4"
+  }
+}
