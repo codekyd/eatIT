@@ -1,7 +1,7 @@
 {
   "name": "eatIT",
   "version": "1.0.0",
-  "description": "An ecommerce website for the sales of all kinds of Nigerian dishes for a fictional startup",
+  "description": "A basic web app that shows a variety of dishes available in Nigeria",
   "main": "app.js",
   "scripts": {
     "test": "1"
@@ -14,6 +14,12 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "ejs": "^2.6.1",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.3.11",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^5.0.1"
   }
 }
