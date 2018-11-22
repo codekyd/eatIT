@@ -1,0 +1,14 @@
+body {
+    font-family: "niramit"
+}
+.jumbotron {
+    background-color: #E8E9EB;
+}
+.navbar-default {
+    background-color: #E8E9EB;
+}
+
+.add-dish-form {
+    width: 35%;
+    margin: 0 auto;
+}
