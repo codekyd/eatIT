@@ -1,54 +1,61 @@
-var express = require("express");
-var app = express();
-var bodyParser = require("body-parser");
 
+// IMPORT ALL THE REQUIRED MODULES
+var passportLocalMongoose = require("passport-local-mongoose"),
+LocalStrategy = require("passport-local"),
+Comment = require("./models/comment"),
+bodyParser = require("body-parser"),
+Dish = require("./models/dish"),
+passport = require("passport"),
+mongoose = require("mongoose"),
+express = require("express"),
+seedDB = require("./seed"),
+User = require("./models/user"),
+app = express();
 
-app.set("view engine", "ejs");
+// IMPORTS NEEDED ROUTES
+var commentRoutes = require("./routes/commentsRoute"),
+dishRoutes        = require("./routes/dishesRoute"),
+indexRoutes       = require("./routes/indexRoute");
 
-var dishes = [
-    {name: "Jollof Rice", image: "img/jollof-fit.jpg" },
-    {name: "Banga Soup", image: "img/banga-soup.jpg"},
-    {name: "Owo Soup", image: "img/img.jpg"},
-    {name: "Fried Rice", image: "img/img.jpg"},
-
-   ];
-
-
+// seedDB();
+// MONGOOSE CONFIG
 
 app.use(bodyParser.urlencoded({extended : true}));
-app.use(express.static("public"));
+mongoose.connect("mongodb://localhost/eatIT");
+app.use(express.static( __dirname +  "/public"));
+app.set("view engine", "ejs");
 
 
-app.get("/", function(req, res){
-    res.render("landing");
+// PASSPORT CONFIG
+
+app.use(require("express-session")({
+    secret: "the boom bomb!",
+    resave: false,
+    saveUninitialized: false,
+
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+app.use(function(req, res, next){
+    res.locals.currentUser = req.user;
+    next();
 });
 
 
-app.get("/dishes", function(req, res){
-    res.render("dishes", {dishes : dishes});
-});
+    // USE ALL ROUTES IMPORTED
+app.use( indexRoutes);
+app.use( "/dishes/:id/comments", commentRoutes);
+app.use( dishRoutes);
 
 
-app.post("/dishes", function(req, res){
-
-    // get data from the form and add them to the array 
-    var dishName = req.body.dishName;
-    var dishImage = "img/"+ req.body.dishImage;
-    var newDish = {name: dishName, image: dishImage };
-    dishes.push(newDish);
-    res.redirect('dishes')
-
-    // redirect back to the dishes page
-
-
-});
-
-app.get("/new", function(req, res){
-    res.render("new");
-})
-
+//  SET UP SERVER
 app.listen(3200, function(){
     console.log("eatIT app started at port 3200!");
     
 
 });
+
