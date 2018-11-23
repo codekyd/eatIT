@@ -12,3 +12,7 @@ body {
     width: 35%;
     margin: 0 auto;
 }
+#delete {
+    display: inline;
+    float: right;
+}
