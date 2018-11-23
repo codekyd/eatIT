@@ -25,10 +25,10 @@ router.get("/dishes", function(req, res){
 router.post("/dishes", isLoggedIn,  function(req, res){
 
     // get data from the form and add them to the DB
-    var dishName = req.body.dishName,
- dishImage = "img/"+ req.body.dishImage,
+var dishName = req.body.dishName,
+dishImage = "img/"+ req.body.dishImage,
 description = req.body.desc,
- author = {
+author = {
     id: req.user._id,
     username: req.user.username,
 }
@@ -64,12 +64,13 @@ router.get("/dishes/:id", function (req, res) {
 
         // throw an error if things don't go right
         if (err) {
-            console.log(err);
+        res.redirect("/dishes");
+         console.log(err);
             
             
         } else {
             // rendder show template with that dish
-            console.log(foundDish);
+            // console.log(foundDish);
             
             res.render("dishes/show", {dish: foundDish});    
         }
@@ -77,6 +78,47 @@ router.get("/dishes/:id", function (req, res) {
     });
 
 });
+
+
+
+
+// ROUTE TO EDIT DISH
+router.get("/dishes/:id/edit",isLoggedIn, function(req, res){
+
+    Dish.findById(req.params.id, function(err, foundDish){
+        if (err) {
+            console.log(err);
+            res.redirect("/dishes/:id")
+            
+        } else {
+            res.render("dishes/edit", { dish : foundDish});
+            
+        }
+    });
+
+});
+
+
+// FIND AND EDIT THE REQUIRED DISH
+router.put("/dishes/:id", isLoggedIn, function(req, res){
+    Dish.findByIdAndUpdate(req.params.id, req.body.dish, function(err, updatedDish){
+        if (err) {
+            res.redirect("/dishes");
+            console.log(err);
+            
+            
+        } else {
+            res.redirect("/dishes/" + req.params.id);
+            console.log(updatedDish);
+            
+            
+        }
+    });
+});
+
+
+
+//ROUTE TO DELETE DISH
 
 // middleware
 function isLoggedIn(req, res, next){
