@@ -6,7 +6,7 @@
 <h1>Welcome to #eatIT!</h1>
 <p>View a large list of hand picked varieties  of dishes served in Nigeria</p>
 
-<p><a href="/dishes/new" class="btn btn-primary btn-lg">Add a dish</a></p>
+<p><a href="/dishes/new" class="btn btn-primary btn-lg">Add New Dish</a></p>
 
 </header>
         <div class="row text-center" style="display:flex; flex-wrap: wrap;">
@@ -15,7 +15,7 @@
 
             <div class="col-md-3 col-sm-6">
                 <div class="thumbnail">
-                    <img class="img" src="<%= dish.image %>" width="300" style="">
+                    <img class="img" src="/img/<%= dish.image %>" width="300" style="">
                     <div class="caption">
                     <p> <%= dish.name %> </p>
                     <a href="/dishes/<%= dish._id %>" class="btn btn-primary" >More Info</a>
