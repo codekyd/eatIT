@@ -15,7 +15,7 @@
             <div class="col-md-9">
                 <div class="thumbnail">
                     
-                <img class="img-responsive" src="/<%=dish.image %>" width="300" height="300">
+                <img class="img-responsive" src="/img/<%=dish.image %>" width="300" height="300">
                     <div class="caption-full">
                         <h3><a href=""><%= dish.name %></a></h3>
                         
@@ -23,7 +23,15 @@
                     
                     </div>
                     
+                    <% if (currentUser && dish.author.id.equals(currentUser._id)){%>
                     <a href="/dishes/<%=dish._id%>/edit" class="btn btn-warning">Edit Post</a>
+                    <form id="delete" action="/dishes/<%=dish._id%>?_method=DELETE" method="POST">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                        
+                    </form>
+              
+
+                   <% }%>
                     <p><%= dish.description%> </p>
                 </div>
             </div>
@@ -38,7 +46,7 @@
                     <% dish.comments.forEach(function(comment){%>
                     
                     <p>
-                    <strong><%= comment.author.username %></strong> - <%= comment.text %> 
+                    <strong> <%= comment.author.username %> </strong> - <%= comment.text %> 
                     </p>
 
                     <%})%>
