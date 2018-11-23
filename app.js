@@ -1,15 +1,17 @@
 
 // IMPORT ALL THE REQUIRED MODULES
 var passportLocalMongoose = require("passport-local-mongoose"),
+methodOverride = require("method-override"),
 LocalStrategy = require("passport-local"),
 Comment = require("./models/comment"),
 bodyParser = require("body-parser"),
+mongoose = require("mongoose"),
+User = require("./models/user"),
 Dish = require("./models/dish"),
 passport = require("passport"),
-mongoose = require("mongoose"),
 express = require("express"),
 seedDB = require("./seed"),
-User = require("./models/user"),
+
 app = express();
 
 // IMPORTS NEEDED ROUTES
@@ -23,6 +25,7 @@ indexRoutes       = require("./routes/indexRoute");
 app.use(bodyParser.urlencoded({extended : true}));
 mongoose.connect("mongodb://localhost/eatIT");
 app.use(express.static( __dirname +  "/public"));
+app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 
 
